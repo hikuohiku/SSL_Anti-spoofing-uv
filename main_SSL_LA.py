@@ -3,6 +3,7 @@ import os
 import sys
 
 import torch
+import wandb
 from tensorboardX import SummaryWriter
 from torch import nn
 from torch.utils.data import DataLoader
@@ -359,6 +360,11 @@ if __name__ == "__main__":
         produce_evaluation_file(eval_set, model, device, args.eval_output)
         sys.exit(0)
 
+    wandb_run = wandb.init(
+        project="wav2vec-aasist",
+        config=vars(args),
+    )
+
     # define train dataloader
     d_label_trn, file_train = genSpoof_list(
         dir_meta=os.path.join(
@@ -434,3 +440,11 @@ if __name__ == "__main__":
             model.state_dict(),
             os.path.join(model_save_path, "epoch_{}.pth".format(epoch)),
         )
+        wandb_run.log(
+            {
+                "epoch": epoch,
+                "train_loss": running_loss,
+                "val_loss": val_loss,
+            }
+        )
+    wandb_run.finish()
