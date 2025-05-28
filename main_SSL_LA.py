@@ -343,8 +343,8 @@ if __name__ == "__main__":
     if args.eval:
         file_eval = genSpoof_list(
             dir_meta=os.path.join(
-                args.protocols_path
-                + "{}_cm_protocols/{}.cm.eval.trl.txt".format(prefix, prefix_2021)
+                args.protocols_path,
+                "{}_cm_protocols/{}.cm.eval.trl.txt".format(prefix, prefix_2021),
             ),
             is_train=False,
             is_eval=True,
@@ -362,8 +362,8 @@ if __name__ == "__main__":
     # define train dataloader
     d_label_trn, file_train = genSpoof_list(
         dir_meta=os.path.join(
-            args.protocols_path
-            + "{}_cm_protocols/{}.cm.train.trn.txt".format(prefix, prefix_2019)
+            args.protocols_path,
+            "{}_cm_protocols/{}.cm.train.trn.txt".format(prefix, prefix_2019),
         ),
         is_train=True,
         is_eval=False,
@@ -376,8 +376,8 @@ if __name__ == "__main__":
         list_IDs=file_train,
         labels=d_label_trn,
         base_dir=os.path.join(
-            args.database_path
-            + "{}_{}_train/".format(prefix_2019.split(".")[0], args.track)
+            args.database_path,
+            "{}_{}_train/".format(prefix_2019.split(".")[0], args.track),
         ),
         algo=args.algo,
     )
@@ -396,8 +396,8 @@ if __name__ == "__main__":
 
     d_label_dev, file_dev = genSpoof_list(
         dir_meta=os.path.join(
-            args.protocols_path
-            + "{}_cm_protocols/{}.cm.dev.trl.txt".format(prefix, prefix_2019)
+            args.protocols_path,
+            "{}_cm_protocols/{}.cm.dev.trl.txt".format(prefix, prefix_2019),
         ),
         is_train=False,
         is_eval=False,
@@ -410,8 +410,8 @@ if __name__ == "__main__":
         list_IDs=file_dev,
         labels=d_label_dev,
         base_dir=os.path.join(
-            args.database_path
-            + "{}_{}_dev/".format(prefix_2019.split(".")[0], args.track)
+            args.database_path,
+            "{}_{}_dev/".format(prefix_2019.split(".")[0], args.track),
         ),
         algo=args.algo,
     )

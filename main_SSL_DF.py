@@ -341,10 +341,10 @@ if __name__ == "__main__":
     if args.eval:
         file_eval = genSpoof_list(
             dir_meta=os.path.join(
-                args.protocols_path
-                + "ASVspoof_{}_cm_protocols/{}.cm.eval.trl.txt".format(
+                args.protocols_path,
+                "ASVspoof_{}_cm_protocols/{}.cm.eval.trl.txt".format(
                     track, prefix_2021
-                )
+                ),
             ),
             is_train=False,
             is_eval=True,
@@ -353,7 +353,7 @@ if __name__ == "__main__":
         eval_set = Dataset_ASVspoof2021_eval(
             list_IDs=file_eval,
             base_dir=os.path.join(
-                args.database_path + "ASVspoof2021_{}_eval/".format(args.track)
+                args.database_path, "ASVspoof2021_{}_eval/".format(args.track)
             ),
         )
         produce_evaluation_file(eval_set, model, device, args.eval_output)
@@ -362,8 +362,8 @@ if __name__ == "__main__":
     # define train dataloader
     d_label_trn, file_train = genSpoof_list(
         dir_meta=os.path.join(
-            args.protocols_path
-            + "ASVspoof_LA_cm_protocols/ASVspoof2019.LA.cm.train.trn.txt"
+            args.protocols_path,
+            "ASVspoof_LA_cm_protocols/ASVspoof2019.LA.cm.train.trn.txt",
         ),
         is_train=True,
         is_eval=False,
@@ -375,7 +375,7 @@ if __name__ == "__main__":
         args,
         list_IDs=file_train,
         labels=d_label_trn,
-        base_dir=os.path.join(args.database_path + "ASVspoof2019_LA_train/"),
+        base_dir=os.path.join(args.database_path, "ASVspoof2019_LA_train/"),
         algo=args.algo,
     )
 
@@ -393,8 +393,8 @@ if __name__ == "__main__":
 
     d_label_dev, file_dev = genSpoof_list(
         dir_meta=os.path.join(
-            args.protocols_path
-            + "ASVspoof_LA_cm_protocols/ASVspoof2019.LA.cm.dev.trl.txt"
+            args.protocols_path,
+            "ASVspoof_LA_cm_protocols/ASVspoof2019.LA.cm.dev.trl.txt",
         ),
         is_train=False,
         is_eval=False,
@@ -406,7 +406,7 @@ if __name__ == "__main__":
         args,
         list_IDs=file_dev,
         labels=d_label_dev,
-        base_dir=os.path.join(args.database_path + "ASVspoof2019_LA_dev/"),
+        base_dir=os.path.join(args.database_path, "ASVspoof2019_LA_dev/"),
         algo=args.algo,
     )
 
