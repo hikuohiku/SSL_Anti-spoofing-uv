@@ -6,7 +6,9 @@ import torch
 from tensorboardX import SummaryWriter
 from torch import nn
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 
+import wandb
 from core_scripts.startup_config import set_random_seed
 from data_utils_SSL import (
     Dataset_ASVspoof2019_train,
@@ -81,7 +83,7 @@ def train_epoch(train_loader, model, lr, optim, device):
     weight = torch.FloatTensor([0.1, 0.9]).to(device)
     criterion = nn.CrossEntropyLoss(weight=weight)
 
-    for batch_x, batch_y in train_loader:
+    for batch_x, batch_y in tqdm(train_loader):
         batch_size = batch_x.size(0)
         num_total += batch_size
 
@@ -325,7 +327,7 @@ if __name__ == "__main__":
 
     model = Model(args, device)
     nb_params = sum([param.view(-1).size()[0] for param in model.parameters()])
-    model = nn.DataParallel(model).to(device)
+    model = nn.DataParallel(model).to(device)  # type: ignore
     print("nb_params:", nb_params)
 
     # set Adam optimizer
@@ -358,6 +360,11 @@ if __name__ == "__main__":
         )
         produce_evaluation_file(eval_set, model, device, args.eval_output)
         sys.exit(0)
+
+    wandb_run = wandb.init(
+        project="wav2vec-aasist",
+        config=vars(args),
+    )
 
     # define train dataloader
     d_label_trn, file_train = genSpoof_list(
@@ -430,3 +437,11 @@ if __name__ == "__main__":
             model.state_dict(),
             os.path.join(model_save_path, "epoch_{}.pth".format(epoch)),
         )
+        wandb_run.log(
+            {
+                "epoch": epoch,
+                "train_loss": running_loss,
+                "val_loss": val_loss,
+            }
+        )
+    wandb_run.finish()
