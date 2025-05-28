@@ -1,7 +1,14 @@
+# experiment-specific files
+DATA/
+logs/
+results/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+*.pt
+*.pth
 
 # C extensions
 *.so
