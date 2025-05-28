@@ -706,6 +706,7 @@ dependencies = [
     { name = "torch" },
     { name = "torchaudio" },
     { name = "torchvision" },
+    { name = "tqdm" },
     { name = "wandb" },
 ]
 
@@ -718,6 +719,7 @@ requires-dist = [
     { name = "torch", specifier = "==1.8.1+cu111", index = "https://download.pytorch.org/whl/cu111" },
     { name = "torchaudio", specifier = "==0.8.1", index = "https://download.pytorch.org/whl/cu111" },
     { name = "torchvision", specifier = "==0.9.1+cu111", index = "https://download.pytorch.org/whl/cu111" },
+    { name = "tqdm", specifier = ">=4.67.1" },
     { name = "wandb", specifier = ">=0.18.7" },
 ]
 

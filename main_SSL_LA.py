@@ -7,6 +7,7 @@ import wandb
 from tensorboardX import SummaryWriter
 from torch import nn
 from torch.utils.data import DataLoader
+from tqdm import tqdm
 
 from core_scripts.startup_config import set_random_seed
 from data_utils_SSL import (
@@ -82,7 +83,7 @@ def train_epoch(train_loader, model, lr, optim, device):
     weight = torch.FloatTensor([0.1, 0.9]).to(device)
     criterion = nn.CrossEntropyLoss(weight=weight)
 
-    for batch_x, batch_y in train_loader:
+    for batch_x, batch_y in tqdm(train_loader):
         batch_size = batch_x.size(0)
         num_total += batch_size
 
