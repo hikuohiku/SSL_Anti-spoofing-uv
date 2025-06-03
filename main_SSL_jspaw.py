@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 import wandb
 from core_scripts.startup_config import set_random_seed
-from data_utils_SSL import (
+from data_utils_SSL_jspaw import (
     Dataset_ASVspoof2019_train,
     Dataset_ASVspoof2021_eval,
     genSpoof_list,
